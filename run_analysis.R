@@ -1,15 +1,9 @@
-## This file (run_analysis.R) is created to do:
-## 1. Merges the training and the test sets to create one data set.
-## 2. Extracts only the measurements on the mean and standard deviation for each measurement.
-## 3. Uses descriptive activity names to name the activities in the data set
-## 4. Appropriately labels the data set with descriptive activity names.
-## 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+## This file (run_analysis.R) is created to do the assigned project: 
+
 if (!require("data.table")) {
-  install.packages("data.table")
-}
+  install.packages("data.table")}
 if (!require("reshape2")) {
-  install.packages("reshape2")
-}
+  install.packages("reshape2")}
 require("data.table")
 require("reshape2")
 activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")[,2]
@@ -38,4 +32,5 @@ id_labels   = c("subject", "Activity_ID", "Activity_Label")
 data_labels = setdiff(colnames(data), id_labels)
 melt_data      = melt(data, id = id_labels, measure.vars = data_labels)
 tidy_data   = dcast(melt_data, subject + Activity_Label ~ variable, mean)
+## the "tiday data" text file is created then:
 write.table(tidy_data, file = "./tidy data.txt")
